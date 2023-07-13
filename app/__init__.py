@@ -14,8 +14,11 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from .views import basic_views, jihyeon_views
+    from .views import basic_views, answer_views, question_views
     app.register_blueprint(basic_views.fisa)
-    app.register_blueprint(jihyeon_views.jihyeon)
+    app.register_blueprint(answer_views.answer)
+    app.register_blueprint(question_views.question)
     
+    from .filter import format_datetime
+    app.jinja_env.filters['date_time'] = format_datetime
     return app
